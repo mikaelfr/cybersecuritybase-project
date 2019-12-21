@@ -1,7 +1,10 @@
 package sec.project.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,4 +33,9 @@ public class SignupController {
         return "done";
     }
 
+    @RequestMapping(value = "/signed", method = RequestMethod.GET)
+    public String loadSigned(Model model) {
+        model.addAttribute("list", signupRepository.findAll().stream().map(s -> s.getName()).collect(Collectors.toList()));
+        return "signed";
+    }
 }

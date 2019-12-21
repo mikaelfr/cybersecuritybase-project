@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sign ups</title>
+        <meta charset="UTF-8"></meta>
+    </head>
+    <body>
+        <h1>People signed up for the event</h1>
+        <ul>
+            <li th:each="item : ${list}">
+                <span th:utext="${item}"></span>
+            </li>
+        </ul>
+    </body>
+</html>
