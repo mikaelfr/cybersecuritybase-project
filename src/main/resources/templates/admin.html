@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sign ups - Admin</title>
+        <meta charset="UTF-8"></meta>
+    </head>
+    <body>
+        <div sec:authentication="username"></div> <!-- works fine -->
+<div sec:authentication="principal.authorities"></div> <!-- works fine -->
+<div  sec:authorize="isAuthenticated()" >true</div> <!-- works fine -->
+<div  sec:authorize="${hasAuthority('ADMIN')}" > IS ADMIN </div> <!-- Doesnt work -->
+
+
+
+        <div sec:authorize="${!hasAuthority('ADMIN')}" >
+            <form action="#" th:action="@{/admin}" method="POST">
+            <p><label for="username">Username</label>: <input type="text" name="username" id="username"/></p>
+            <p><label for="password">Password</label>: <input type="password" name="password" id="password"/></p>
+            <p><input type="submit" value="Log in" /></p>
+        </form>
+        </div>
+        <div sec:authorize="${hasAuthority('ADMIN')}" >
+            <h1>People signed up for the event</h1>
+            <ul>
+                <li th:each="item : ${list}">
+                    <span th:utext="${item}"></span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
+
