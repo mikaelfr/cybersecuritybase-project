@@ -5,21 +5,14 @@
         <meta charset="UTF-8"></meta>
     </head>
     <body>
-        <div sec:authentication="username"></div> <!-- works fine -->
-<div sec:authentication="principal.authorities"></div> <!-- works fine -->
-<div  sec:authorize="isAuthenticated()" >true</div> <!-- works fine -->
-<div  sec:authorize="${hasAuthority('ADMIN')}" > IS ADMIN </div> <!-- Doesnt work -->
-
-
-
-        <div sec:authorize="${!hasAuthority('ADMIN')}" >
+        <div>
             <form action="#" th:action="@{/admin}" method="POST">
-            <p><label for="username">Username</label>: <input type="text" name="username" id="username"/></p>
-            <p><label for="password">Password</label>: <input type="password" name="password" id="password"/></p>
-            <p><input type="submit" value="Log in" /></p>
-        </form>
+                <p><label for="username">Username</label>: <input type="text" name="username" id="username"/></p>
+                <p><label for="password">Password</label>: <input type="password" name="password" id="password"/></p>
+                <p><input type="submit" value="Log in" /></p>
+            </form>
         </div>
-        <div sec:authorize="${hasAuthority('ADMIN')}" >
+        <div>
             <h1>People signed up for the event</h1>
             <ul>
                 <li th:each="item : ${list}">

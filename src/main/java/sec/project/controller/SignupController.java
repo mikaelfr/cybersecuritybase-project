@@ -53,7 +53,6 @@ public class SignupController {
     public String loadAdmin(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            System.out.println(auth.getCredentials());
             List<String> mapped = signupRepository.findAll().stream().map(s -> s.getName() + " - " + s.getAddress()).collect(Collectors.toList());
             model.addAttribute("list", mapped);
         }
