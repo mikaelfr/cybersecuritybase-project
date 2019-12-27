@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Error</title>
+    </head>
+    <body>
+        <h1>An error occurred</h1>
+        <a href="/form">Back to form</a>
+        <div>Error: <span th:text="${exception.message}"></span></div>
+        <br/>
+        <div>Stack trace: <br/>
+            <ul>
+            <li th:each="item : ${exception.stackTrace}">
+                <span th:text="${item}"></span>
+            </li>
+        </ul>
+        </div>
+    </body>
+</html>

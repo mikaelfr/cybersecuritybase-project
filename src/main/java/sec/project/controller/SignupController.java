@@ -2,6 +2,7 @@ package sec.project.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,9 +12,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import sec.project.domain.Signup;
 import sec.project.repository.SignupRepository;
 
@@ -51,11 +54,11 @@ public class SignupController {
     
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String loadAdmin(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //if (auth != null && auth.isAuthenticated() && auth.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
             List<String> mapped = signupRepository.findAll().stream().map(s -> s.getName() + " - " + s.getAddress()).collect(Collectors.toList());
             model.addAttribute("list", mapped);
-        }
+        //}
         
         return "admin";
     }
@@ -68,5 +71,13 @@ public class SignupController {
         }
         
         return "redirect:/admin";
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception ex) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex);
+        mav.setViewName("error");
+        return mav;
     }
 }
