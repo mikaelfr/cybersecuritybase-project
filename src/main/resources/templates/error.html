@@ -6,7 +6,14 @@
     <body>
         <h1>An error occurred</h1>
         <a href="/form">Back to form</a>
+        
         <div>Error: <span th:text="${exception.message}"></span></div>
+        <!--    
+            If you want to pass message directly use this instead
+            ALSO DON'T FORGET TO REMOVE THE STACK TRACE DIV BELOW
+        
+            <div>Error: <span th:text="${message}"></span></div>
+        -->
         <br/>
         <div>Stack trace: <br/>
             <ul>

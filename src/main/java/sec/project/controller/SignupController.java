@@ -77,6 +77,7 @@ public class SignupController {
     public ModelAndView handleError(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex);
+        // mav.addObject("message", ex.getMessage()); // directly passing message
         mav.setViewName("error");
         return mav;
     }
